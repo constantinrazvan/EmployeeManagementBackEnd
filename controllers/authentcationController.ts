@@ -1,42 +1,46 @@
-import Express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import User from '../models/User';
 
-const loginController = (req: Request, res: Response) => { 
+export const loginController = (req: Request, res: Response) => {
     try {
-    } catch {
+        // Your login logic goes here
+    } catch (error) {
+        console.error(error);
         res.status(400).json({
             status: "Failed",
-            message: "Something went wrong"
-        })
+            message: "Something went wrong",
+        });
     }
-}
+};
 
-const registerController = (req: Request, res: Response) => {
+export const registerController = async (req: Request, res: Response) => {
     try {
-        const exists = User.find({ email: req.body.email });
+        const exists = await User.findOne({ email: req.body.email });
 
-        if(exists[0]) {
-            return "Email already in use!";
+        if (exists) {
+            res.status(400).json({
+                status: "Failed",
+                message: "Email already in use!",
+            });
         } else {
             const newUser = new User({
-                email: req.body.email, 
-                password: req.body.password 
-            })
+                email: req.body.email,
+                password: req.body.password,
+            });
 
-            const saved = newUser.save();
+            const saved = await newUser.save();
             console.log(saved);
 
             res.status(200).json({
-                status: "Success!", 
-                message: "User created succesfully!"
-            })
+                status: "Success!",
+                message: "User created successfully!",
+            });
         }
-    } catch {
+    } catch (error) {
+        console.error(error);
         res.status(400).json({
             status: "Failed",
-            message: "Something went wrong!"
-        })
+            message: "Something went wrong!",
+        });
     }
-}
-
-export default {loginController, registerController};
+};

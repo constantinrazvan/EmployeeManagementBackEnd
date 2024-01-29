@@ -1,39 +1,26 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 interface IUser {
-    email: String, 
-    password: String, 
+    email: String,
+    password: String,
     role: String
 }
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema: Schema<IUser> = new mongoose.Schema({
     email: {
-        type: String, 
+        type: String,
         required: true
-    }, 
+    },
     password: {
-        type: String, 
+        type: String,
         required: true
-    }, 
+    },
     role: {
-        type: String, 
+        type: String,
         required: true
     }
-})
-
-userSchema.plugin(function (schema: any) {
-    schema.options = schema.options || {};
-    schema.options._id = false;
-    schema.add({
-        _id: {
-            type: Number,
-            unique: true,
-            required: true,
-            default: 1
-        }
-    });
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;
