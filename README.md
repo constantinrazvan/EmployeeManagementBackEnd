@@ -1,7 +1,7 @@
 
 # Employee Management System
 
-This project is made during my university exams. It is a simple project just for portfolio -> A simple Employee Management System with all CRUD operations! This just the backend for this project, I will create the frontend also for this project.
+This project is made during my university as break time exams. It is a simple project just for portfolio -> A simple Employee Management System with all CRUD operations! This just the backend for this project, I will create the frontend also for this project.
 
 
 ## Run project
